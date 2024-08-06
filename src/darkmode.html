@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>바닐라 자바스크립트 버전</title>
+  </head>
+  <body>
+    <div id="root">
+      <h1>Vanilla JS로 상태 전달</h1>
+      <div id="child-component">
+        <p id="theme-status">현재 테마 : Ligth Mode</p>
+        <button id="toggle-button">다크모드</button>
+      </div>
+    </div>
+    <script>
+      //초기화
+      let isDarkMode = false;
+      const root = document.getElementById("root");
+
+      document.body.style.margin = "0";
+      document.body.style.display = "flex";
+      document.body.style.justifyContent = "center";
+      document.body.style.alignItems = "center";
+      document.body.style.height = "100vh";
+
+      root.style.width = "100vw";
+      root.style.height = "100vh";
+      root.style.display = "flex";
+      root.style.flexDirection = "column";
+      root.style.justifyContent = "center";
+      root.style.alignItems = "center";
+      root.style.transition = "background-color 0.5s";
+
+      console.log(root.children[0]);
+
+      const toggleButton = document.getElementById("toggle-button");
+      //상태 변경 함수
+      const toggleTheme = () => {
+        if (isDarkMode === true) {
+          isDarkMode = false;
+          root.style.backgroundColor = "white";
+          root.children[0].style.color = "black";
+          root.children[1].children[0].style.color = "black";
+        } else {
+          isDarkMode = true;
+          root.style.backgroundColor = "black";
+          root.children[0].style.color = "white";
+          root.children[1].children[0].style.color = "white";
+        }
+        updateUI();
+      };
+
+      //UI업데이트 함수
+      const updateUI = () => {
+        const themeStatus = document.getElementById("theme-status");
+        if (isDarkMode === true) {
+          themeStatus.textContent = "현재 테마: Dark Mode";
+        } else {
+          themeStatus.textContent = "현재 테마: Light Mode";
+        }
+      };
+
+      toggleButton.addEventListener("click", toggleTheme);
+
+      //초기 UI 업데이터
+      updateUI();
+    </script>
+  </body>
+</html>
